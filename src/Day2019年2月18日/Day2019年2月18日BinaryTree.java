@@ -9,7 +9,7 @@ import java.util.LinkedList;
  *  @Description:  之字形打印二叉树
  */
 
-public class Day2019年2月18日 {
+public class Day2019年2月18日BinaryTree {
     public static void test(){
 
         // 待打印的二叉树
