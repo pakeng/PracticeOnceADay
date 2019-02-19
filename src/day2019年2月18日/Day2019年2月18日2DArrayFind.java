@@ -1,10 +1,6 @@
-package Day2019年2月18日;
+package day2019年2月18日;
 
 import util.Utils;
-
-import javax.rmi.CORBA.Util;
-import java.lang.annotation.Target;
-import java.util.ArrayList;
 
 /**
  *  @author: Vito
