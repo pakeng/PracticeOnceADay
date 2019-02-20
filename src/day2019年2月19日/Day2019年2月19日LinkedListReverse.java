@@ -1,6 +1,9 @@
 package day2019年2月19日;
 
+import sun.awt.image.ImageWatched;
+
 import java.util.LinkedList;
+import java.util.Stack;
 
 /**
  *  @author: Vito
@@ -33,7 +36,6 @@ public class Day2019年2月19日LinkedListReverse {
             return header;
         }
         // 递归调用 返回原始链表的倒数第一个元素
-
         LinkedNode newHeader = reverse(header.next);
         // 返回的是新的头 ， header代表原始倒数第二个元素
         // 将倒数第一个元素的next指向倒数第二个元素
@@ -44,6 +46,57 @@ public class Day2019年2月19日LinkedListReverse {
         return newHeader;
     }
 
+    /**
+     *  使用栈反转链表，先将链表元素从头遍历放入栈中，然后逐个弹出，重建新的链表
+     * @param header 链表头
+     * @return  新的链表头
+     */
+    public LinkedNode reverseWithStack(LinkedNode header){
+        if (header==null||header.next==null){
+            return header;
+        }
+        LinkedNode newHeader , tempTail;
+        Stack<LinkedNode> stack = new Stack<>();
+        // 逐个放入栈中，
+        while (header!=null){
+            stack.add(header);
+            header=header.next;
+        }
+        // 保存新的链表头
+        newHeader = stack.pop();
+        tempTail = newHeader;
+        // 开始逐个弹出，并且移动指针指向当前的链表尾部
+        while (stack.size()>0){
+            tempTail.next = stack.pop();
+            tempTail = tempTail.next;
+        }
+        // 将链表尾部的指针清除
+        tempTail.next = null;
+        return newHeader;
+    }
+
+    /**
+     * 使用循环反转列表
+     * @param header 链表头
+     * @return 新的链表头
+     */
+    public LinkedNode reverseWithLoop(LinkedNode header){
+        if (header==null){
+            return header;
+        }
+        // newHeader 反转之后的新头， temp临时变量， curr 遍历的指针
+        LinkedNode newHeader = header, temp=header, curr=header.next;
+        // 头部作为新的链表的尾部，需要将指向清空
+        header.next = null;
+        // 当curr是空则说明遍历到了源链表的尾部了
+        while (curr!=null){
+            temp = curr.next;
+            curr.next = newHeader;
+            newHeader = curr;
+            curr = temp;
+        }
+        return newHeader;
+    }
 
     public void test(){
         LinkedNode<String> node0 = new LinkedNode<>("0");
@@ -64,7 +117,9 @@ public class Day2019年2月19日LinkedListReverse {
             node = node.next;
         }
         System.out.print("\n");
-        node = reverse(node0);
+//        node = reverse(node0);
+//        node = reverseWithStack(node0);
+        node = reverseWithLoop(node0);
         System.out.println("reversed LinkedList ->");
         while (node!=null){
             System.out.print("\t"+node);
